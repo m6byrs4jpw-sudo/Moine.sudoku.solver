@@ -10,11 +10,11 @@ Il programma prende in input una matrice di Sudoku:
 
 ## Svolgimento
 Il programma esegue sudoku delle seguenti difficoltà:
-1, Facile
-2. Medio
-3. Difficile
+1, Facile.
+2. Medio.
+3. Difficile.
 Raggiunge una buona percentuale di completamento, non ancora il 100%, della seguente difficoltà:
-4. Esperto
+4. Esperto.
 
 ## Come eseguirlo
 
