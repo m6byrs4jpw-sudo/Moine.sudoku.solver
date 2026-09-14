@@ -34,5 +34,4 @@ L'algoritmo risolve con successo e senza backtracking i livelli di difficoltà:
 
 1. **Clona la repository** o scarica lo script:
    ```bash
-   git clone [https://github.com/tuo-username/nome-repo.git](https://github.com/tuo-username/nome-repo.git)
-   cd nome-repo
+   python Moine.sudoku.solver.py
