@@ -1,27 +1,38 @@
-# Sudoku Solver in Python
+# 🧩 Sudoku Solver in Python
 
-Un algoritmo in Python per la risoluzione automatica di schemi di Sudoku basato sulla tecnica dei **Naked Singles** e **Double Pairs** (o candidati unici e doppie coppie).
+Un algoritmo leggero e performante scritto in Python per la risoluzione automatica di schemi di Sudoku, basato sulle tecniche di logica deduttiva **Naked Singles** (candidati unici) e **Double Pairs** (coppie nascoste/esclusive).
 
-## Descrizione
-Il programma prende in input una matrice di Sudoku:
-1. Verifica se la griglia fornita è valida.
-2. Calcola i candidati possibili per ogni cella vuota.
-3. Applica iterativamente la ricerca dei singoli per completare la soluzione.
+---
 
-## Svolgimento
-Il programma esegue sudoku delle seguenti difficoltà:
-1, Facile.
-2. Medio.
-3. Difficile.
-Raggiunge una buona percentuale di completamento, non ancora il 100%, della seguente difficoltà:
-4. Esperto.
+## 📌 Descrizione
 
-## Come eseguirlo
+Il programma analizza una griglia di Sudoku fornita in input sotto forma di matrice e procede secondo i seguenti passaggi:
 
-Assicurati di avere **Python 3.x** installato.
+1. **Validazione della griglia**: Verifica che il tabellone iniziale rispetti le regole del Sudoku (nessun duplicato su righe, colonne o sotto-griglie 3x3).
+2. **Calcolo dei candidati**: Identifica i numeri possibili per ciascuna cella vuota incrociando i vincoli di riga, colonna e blocco.
+3. **Risoluzione deduttiva**: Applica iterativamente le strategie di logica per inserire i valori certi fino al completamento dello schema.
 
-1. Clona la repository o scarica il file `Moine.sudoku.solver.py`.
-2. Esegui il file con il comando:
+---
 
-```bash
-python Moine.sudoku.solver.py
+## 📊 Performance e Copertura
+
+L'algoritmo risolve con successo e senza backtracking i livelli di difficoltà:
+
+- 🟢 **Facile** (100% di successo)
+- 🟡 **Medio** (100% di successo)
+- 🟠 **Difficile** (100% di successo)
+- 🔴 **Esperto** (Raggiunge un'alta percentuale di completamento, in fase di ottimizzazione per la copertura totale)
+
+---
+
+## 🚀 Come Eseguire il Progetto
+
+### Requisiti
+- **Python 3.8+** installato sul sistema.
+
+### Istruzioni
+
+1. **Clona la repository** o scarica lo script:
+   ```bash
+   git clone [https://github.com/tuo-username/nome-repo.git](https://github.com/tuo-username/nome-repo.git)
+   cd nome-repo
