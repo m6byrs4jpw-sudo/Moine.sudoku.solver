@@ -1,6 +1,6 @@
 # Sudoku Solver in Python
 
-Un algoritmo in Python per la risoluzione automatica di schemi di Sudoku basato sulla tecnica dei **Naked Singles** (o candidati unici).
+Un algoritmo in Python per la risoluzione automatica di schemi di Sudoku basato sulla tecnica dei **Naked Singles** e **Double Pairs** (o candidati unici e doppie coppie).
 
 ## Descrizione
 Il programma prende in input una matrice di Sudoku:
