@@ -8,6 +8,14 @@ Il programma prende in input una matrice di Sudoku:
 2. Calcola i candidati possibili per ogni cella vuota.
 3. Applica iterativamente la ricerca dei singoli per completare la soluzione.
 
+## Svolgimento
+Il programma esegue sudoku delle seguenti difficoltà:
+1, Facile
+2. Medio
+3. Difficile
+Raggiunge una buona percentuale di completamento, non ancora il 100%, della seguente difficoltà:
+4. Esperto
+
 ## Come eseguirlo
 
 Assicurati di avere **Python 3.x** installato.
