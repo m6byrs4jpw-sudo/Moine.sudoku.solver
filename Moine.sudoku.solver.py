@@ -2,15 +2,15 @@ riga = 9
 colonna = 9
 
 tabella = [
-  [9, 8, 5, 7, 2, 4, 1, 6, 3],
-  [1, 4, 6, 8, 9, 3, 2, 7, 5],
-  [0, 0, 0, 0, 0, 6, 4, 9, 8],
-  [6, 9, 0, 0, 7, 5, 0, 0, 0],
-  [0, 0, 0, 9, 3, 0, 5, 0, 0],
-  [0, 0, 3, 0, 0, 0, 0, 4, 0],
-  [8, 0, 9, 0, 0, 1, 6, 2, 0],
-  [0, 0, 0, 0, 0, 7, 9, 0, 0],
-  [4, 3, 0, 2, 0, 0, 0, 5, 0]
+  [5, 0, 6, 0, 0, 0, 0, 2, 4],
+  [0, 0, 0, 2, 0, 0, 5, 1, 0],
+  [4, 2, 0, 5, 8, 0, 0, 0, 0],
+  [0, 9, 7, 3, 0, 0, 2, 0, 5],
+  [2, 0, 8, 0, 1, 0, 0, 7, 0],
+  [6, 0, 0, 7, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 7, 3, 0, 0, 1],
+  [0, 0, 0, 0, 0, 0, 0, 0, 7],
+  [7, 1, 3, 0, 0, 0, 4, 8, 2]
 ]
 # ==========================================
 # 1. FUNZIONI - VALIDITÀ
@@ -141,7 +141,7 @@ def candidati(sudoku):
 
 
 # ==========================================
-# 3. SVOLGIMENTO
+# 3.1 SVOLGIMENTO
 # ==========================================            
 def singoli(sudoku):
         modificato = False
@@ -163,19 +163,110 @@ def loopsingoli(sudoku):
         
 
 
+        
+
+
+
+# ==========================================
+# 3.2 TECNICA DOUBLE-PAIRS
+# ==========================================
+
+def doublepairs(sudoku):
+    sudoku = loopsingoli(sudoku)
+    griglia_candidati2= candidati(sudoku)
+    inserito_newnumber = False
+
+# DOUBLE-PAIRS, controllo sulle RIGHE
+    for i in range(9):
+        for j in range(9):
+            for k in range(j+1, 9):
+             cell1 = griglia_candidati2[i][j]
+             cell2 = griglia_candidati2[i][k]
+ #dopo aver trovato sulle righela coppia in comune, creo un terzo for che elimina i candidati dalle altre celle   
+             if ( isinstance( cell1, set) and isinstance( cell2, set)):
+                 if len(cell1)== 2 and len(cell2)==2 and cell1== cell2:
+                     coppia= cell1
+                     for h in range(9):
+                         if j != h and k != h:
+                             cell3 =  griglia_candidati2[i][h]
+                             if (isinstance (cell3, set)):
+                                 griglia_candidati2[i][h] = cell3- cell1
+
+# DOUBLE-PAIRS, controllo sulle COLONNE
+    for j in range(9):
+        for i in range (9):
+           for k in range (i+1, 9):
+                cell4= griglia_candidati2[i][j]
+                cell5 = griglia_candidati2[k][j]
+  #dopo aver trovato sulle colonne la coppia in comune, creo un terzo for che elimina i candidati dalle altre celle                               
+                if (isinstance(cell4, set) and isinstance(cell5, set)):
+                  if len(cell4)==2 and  len(cell5)==2 and cell4== cell5:
+                    coppia= cell4
+                    for h in range(9):
+                      if i!= h and k!= h:
+                        cell6= griglia_candidati2[h][j]
+                        if (isinstance( cell6, set)):
+                                 griglia_candidati2[h][j]= cell6 - coppia
+
+# DOUBLE-PAIRS, controllo sui QUADRATI 3X3
+    for i in range(0,9,3):
+       for j in range(0,9,3):                          
+        candidati_blocco= []
+        posizioni_blocco = []
+        for a in range(3):
+          for b in range(3):
+             riga_reale= i + a
+             colonna_reale = j + b                    
+             candidati_blocco.append(griglia_candidati2[riga_reale][colonna_reale])
+             posizioni_blocco.append((riga_reale,colonna_reale))                    
+                                 
+  #ora il sudoku 9x9 è diventato 3x3, quindi agiamo normalmente come in precedenza                               
+        for c in range(9):
+            for d in range(c+1,9):
+                   cell1 = candidati_blocco[c]                  
+                   cell2 = candidati_blocco[d]
+                   if ( isinstance( cell1,set) and isinstance( cell2, set)):
+                     if len(cell1)==2 and len(cell2)== 2 and cell1== cell2:
+                       candidato_singolo1 = list(cell1)[0]
+                       candidato_singolo2 = list(cell1)[1]
+
+                       for e in range(9):
+                        if c != e and d!= e:
+                          riga_pulita, colonna_pulita = posizioni_blocco[e]
+                          cell3 = griglia_candidati2[riga_pulita][colonna_pulita]
+                          if (isinstance( cell3, set)):
+                                   griglia_candidati2[riga_pulita][colonna_pulita]= cell3.discard(candidato_singolo1)
+                                   griglia_candidati2[riga_pulita][colonna_pulita]= cell3.discard(candidato_singolo2)
+
+      
+    for i in range(9):
+           for j in range(9):
+             if (isinstance(griglia_candidati2[i][j], set) and len(griglia_candidati2[i][j])==1):
+                 numero = list(griglia_candidati2[i][j])[0]
+                 sudoku [i][j] = numero 
+                 inserito_newnumber = True
+    
+    sudoku = loopsingoli(sudoku)
+    return sudoku
+                 
+
 
 
 
 # ==========================================
 # 4. ESECUZIONE
 # ==========================================
-if validita(tabella):
-    risultato = loopsingoli(tabella)
-    
+if validita(tabella): 
+    cambiamento = True
+    while cambiamento:
+        tabella_precedente = [riga[:] for riga in tabella]
+        tabella = doublepairs(tabella)
+        if tabella == tabella_precedente:
+          break;
  # Stampiamo la tabella riga per riga
  
     print("Il sudoku finale:")
-    for riga in risultato:
+    for riga in candidati(tabella):
         print(riga)
 
 else:
